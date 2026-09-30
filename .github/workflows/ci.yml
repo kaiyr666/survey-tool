@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Unit tests
+        run: npm test
+      - name: Start local Supabase
+        run: npx supabase start -x studio,imgproxy,storage-api,edge-runtime,logflare,vector,supavisor,postgres-meta,mailpit,gotrue
+      - name: Configure app for local Supabase
+        run: |
+          KEY=$(docker exec supabase_kong_survey-tool sh -c 'grep -o "sb_publishable_[A-Za-z0-9_-]*" /home/kong/kong.yml | head -1')
+          test -n "$KEY"
+          echo "SUPABASE_URL=http://127.0.0.1:54321" >> .env.local
+          echo "SUPABASE_ANON_KEY=$KEY" >> .env.local
+          echo "DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres" >> .env.test
+      - name: Database / API tests
+        run: npm run test:db
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end tests
+        run: npm run test:e2e
+      - name: Load test (200 participants / 60 s)
+        run: npm run test:load
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: test-results/

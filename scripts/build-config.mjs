@@ -2,6 +2,7 @@
 //   SUPABASE_URL       https://xxxx.supabase.co
 //   SUPABASE_ANON_KEY  the project's anon / publishable key (safe to expose; RLS protects data)
 //   PUBLIC_URL         optional short link printed under the QR code (e.g. poll.example.com)
+//   DEMO_PIN           optional operator PIN to show on /demo for public tests
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -23,6 +24,7 @@ const cfg = {
   supabaseUrl: env.SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL || '',
   supabaseKey: env.SUPABASE_ANON_KEY || env.SUPABASE_PUBLISHABLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
   publicUrl: env.PUBLIC_URL || '',
+  demoPin: env.DEMO_PIN || '',   // optional: shown on /demo so public testers can try the operator panel
 };
 
 if (!cfg.supabaseUrl || !cfg.supabaseKey) {

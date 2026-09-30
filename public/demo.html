@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Live Poll — anonymous audience polling for live events. Phones vote, the big screen updates in real time.">
+  <meta property="og:title" content="Live Poll — try the demo">
+  <meta property="og:description" content="Scan, tap, watch the results move. Anonymous live polling for conferences and panels.">
+  <title>Live Poll — Demo</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
+  <link rel="stylesheet" href="/css/demo.css">
+  <script src="/config.js"></script>
+  <script type="module" src="/js/demo.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/demo"><img src="/icon.svg" alt="" width="22" height="22"><span>Live Poll</span></a>
+      <nav>
+        <a href="#how">How it works</a>
+        <a href="#try">Try it</a>
+        <a href="#features">Features</a>
+        <a class="nav-cta" href="/" target="_blank" rel="noopener">Vote now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <p class="eyebrow reveal">Live audience polling</p>
+      <h1 class="reveal">Every voice in the room.<br><span class="grad">On screen in a second.</span></h1>
+      <p class="lead reveal">Guests scan a QR code, answer three quick questions anonymously, and the big screen comes alive — bars growing, reordering and settling in real time.</p>
+      <div class="hero-ctas reveal">
+        <a class="btn btn-primary" href="/" target="_blank" rel="noopener">Answer the poll</a>
+        <a class="btn btn-link" href="/screen" target="_blank" rel="noopener">Open the big screen <span aria-hidden="true">›</span></a>
+      </div>
+
+      <div class="stage reveal">
+        <div class="laptop">
+          <div class="laptop-screen">
+            <iframe id="screen-frame" title="Live results screen" src="about:blank" loading="lazy" tabindex="-1"></iframe>
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="phone-notch"></div>
+          <div class="phone-ui">
+            <div class="p-progress"><span>Question 1 of 3</span><i><b></b></i></div>
+            <div class="p-q">What slows down digitalization and automation in your company the most?</div>
+            <div class="p-hint">Selected 2 of 2</div>
+            <div class="p-opt on">Legacy systems and integrations<span></span></div>
+            <div class="p-opt">Lack of IT resources<span></span></div>
+            <div class="p-opt on">Data: quality and access<span></span></div>
+            <div class="p-opt">No priority or budget<span></span></div>
+            <div class="p-btn">Next</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live numbers -->
+    <section class="band">
+      <div class="band-inner">
+        <div class="kpi reveal"><span class="kpi-v" id="k-joined">—</span><span class="kpi-k">joined the current session</span></div>
+        <div class="kpi reveal"><span class="kpi-v" id="k-completed">—</span><span class="kpi-k">answered every question</span></div>
+        <div class="kpi reveal"><span class="kpi-v">&lt; 2 s</span><span class="kpi-k">from tap to big screen</span></div>
+        <div class="kpi reveal"><span class="kpi-v">0</span><span class="kpi-k">apps, sign-ups or cookies</span></div>
+      </div>
+    </section>
+
+    <!-- How -->
+    <section class="section" id="how">
+      <p class="eyebrow reveal">How it works</p>
+      <h2 class="reveal">Three screens. One live moment.</h2>
+      <div class="cards">
+        <a class="card reveal" href="/" target="_blank" rel="noopener">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
+          <h3>Phone</h3>
+          <p>One question per screen, big tappable cards, answers sent the moment you tap Next — even on a crowded network.</p>
+          <span class="card-link">Open participant page ›</span>
+        </a>
+        <a class="card reveal" href="/screen" target="_blank" rel="noopener">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h3>Big screen</h3>
+          <p>QR code, live counters and fully labelled bars readable from the last row. Works with any presentation clicker.</p>
+          <span class="card-link">Open presentation screen ›</span>
+        </a>
+        <a class="card reveal" href="/admin" target="_blank" rel="noopener">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></div>
+          <h3>Operator</h3>
+          <p>Open and close questions, switch screen pages, reveal results, run the speaker timer and export the data.</p>
+          <span class="card-link">Open operator panel ›</span>
+          <span class="card-note" id="pin-note"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Try -->
+    <section class="section try" id="try">
+      <div class="try-grid">
+        <div>
+          <p class="eyebrow reveal">Try it in 60 seconds</p>
+          <h2 class="reveal">Put the screen on your laptop. Vote from your phone.</h2>
+          <ol class="steps">
+            <li class="reveal"><b>Open the big screen</b> on a laptop or TV and press <kbd>F</kbd> for full screen.</li>
+            <li class="reveal"><b>Scan the QR code</b> with your phone camera and answer the three questions.</li>
+            <li class="reveal"><b>Watch the results move.</b> Use <kbd>→</kbd> / <kbd>←</kbd> or a clicker to flip between questions.</li>
+            <li class="reveal"><b>Take the operator seat</b> to hide results, add company tags or start a 90-second timer.</li>
+          </ol>
+        </div>
+        <div class="qr-card reveal">
+          <div id="demo-qr" class="qr"></div>
+          <div class="qr-cap">Scan to vote</div>
+          <div class="qr-url" id="demo-url"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <p class="eyebrow reveal">Built for the room</p>
+      <h2 class="reveal">Details that matter on the day.</h2>
+      <div class="features">
+        <div class="feature reveal"><h4>Truly anonymous</h4><p>A random device ID, no names, no emails, no IP addresses in the data. Only aggregates are public.</p></div>
+        <div class="feature reveal"><h4>Offline-tolerant</h4><p>Lost signal? Answers are saved on the phone and retried automatically after 2, 4 and 8 seconds.</p></div>
+        <div class="feature reveal"><h4>No double counting</h4><p>Go back and change an answer — it is updated, never duplicated. Reopen the link and pick up where you left off.</p></div>
+        <div class="feature reveal"><h4>Calm animations</h4><p>Bars grow smoothly and reorder at most every four seconds, so the audience can actually read them.</p></div>
+        <div class="feature reveal"><h4>Operator in control</h4><p>Test and live sessions, reset with confirmation, CSV exports and a PNG of every results page.</p></div>
+        <div class="feature reveal"><h4>Light as air</h4><p>The phone page loads in a fraction of a second on 4G. No frameworks, no trackers, no pop-ups.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>Live Poll · Open-source demo · Built on Supabase</div>
+    <div class="footer-links"><a href="/">Vote</a><a href="/screen">Screen</a><a href="/admin">Operator</a></div>
+  </footer>
+</body>
+</html>
