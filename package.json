@@ -1,14 +1,20 @@
 {
   "name": "survey-tool",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Live anonymous audience polling: phone voting, big-screen live results, operator panel (Supabase + static hosting).",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node scripts/build-config.mjs && node scripts/serve.mjs",
+    "build": "node scripts/build-config.mjs",
+    "db:start": "supabase start -x studio,imgproxy,storage-api,edge-runtime,logflare,vector,supavisor,postgres-meta,mailpit,gotrue",
+    "db:reset": "supabase db reset",
+    "test": "node --test \"tests/unit/*.test.mjs\"",
+    "test:db": "node --test --test-concurrency=1 \"tests/db/*.test.mjs\"",
+    "test:e2e": "playwright test",
+    "test:load": "node tests/load/load.mjs",
+    "test:all": "npm test && npm run test:db && npm run test:e2e && npm run test:load",
+    "shots": "node tests/tools/shots.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "supabase": "^2.118.0"
@@ -16,5 +22,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",
     "qrcode-generator": "^2.0.4"
-  }
+  },
+  "private": true,
+  "type": "module"
 }

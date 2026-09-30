@@ -10,3 +10,4 @@ playwright-report/
 tests/.artifacts/
 supabase/.temp/
 supabase/.branches/
+.env.test
