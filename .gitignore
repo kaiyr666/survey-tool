@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+public/config.js
+.vercel/
+.netlify/
+test-results/
+playwright-report/
+tests/.artifacts/
+supabase/.temp/
+supabase/.branches/
