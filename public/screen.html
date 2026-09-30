@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Live Poll — Screen</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
+  <link rel="stylesheet" href="/css/screen.css">
+  <script src="/config.js"></script>
+  <script type="module" src="/js/screen.js"></script>
+</head>
+<body>
+  <div id="stage" class="stage"></div>
+
+  <div class="overlay"><div class="overlay-frame"><div id="timer" class="timer" hidden aria-live="off"></div></div></div>
+
+  <nav id="tabs" class="tabs" aria-label="Screen pages">
+    <div id="tabs-list" class="tabs-list" role="tablist"></div>
+    <button id="fs" class="tab-icon" type="button" title="Full screen (F)" aria-label="Full screen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+  </nav>
+
+  <div id="offline" class="offline" hidden><span class="dot"></span>No connection — reconnecting…</div>
+</body>
+</html>

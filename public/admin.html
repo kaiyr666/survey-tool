@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Live Poll — Operator</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/config.js"></script>
+  <script type="module" src="/js/admin.js"></script>
+</head>
+<body>
+  <!-- Login -->
+  <main id="login" class="login" hidden>
+    <form id="login-form" class="login-card" autocomplete="off">
+      <div class="app-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 18V11M12 18V6M19 18v-4"/></svg>
+      </div>
+      <h1>Operator panel</h1>
+      <p class="muted">Enter the operator PIN to control the poll and the presentation screen.</p>
+      <label class="sr-only" for="pin">PIN</label>
+      <input id="pin" name="pin" class="pin-input" type="password" inputmode="numeric" placeholder="PIN" required autofocus>
+      <button class="btn btn-primary btn-block" type="submit">Unlock</button>
+      <p id="login-error" class="error" role="alert"></p>
+    </form>
+  </main>
+
+  <!-- Dashboard -->
+  <div id="dash" hidden>
+    <header class="nav">
+      <div class="nav-inner">
+        <div class="brand">
+          <span class="app-mark sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 18V11M12 18V6M19 18v-4"/></svg></span>
+          <span>Live Poll</span>
+          <span id="mode-badge" class="badge">TEST</span>
+          <span id="session-name" class="session-name"></span>
+        </div>
+        <nav class="nav-links">
+          <a href="/screen" target="_blank" rel="noopener" id="open-screen">Screen ↗</a>
+          <a href="/" target="_blank" rel="noopener">Participant ↗</a>
+          <button id="logout" class="link-btn" type="button">Log out</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="stats" id="stats" aria-label="Live numbers"></section>
+
+      <div class="grid">
+        <!-- Poll control -->
+        <section class="card span-2">
+          <div class="card-head">
+            <h2>Poll</h2>
+            <div class="seg" id="poll-status" role="group" aria-label="Poll status">
+              <button data-v="not_started">Not started</button>
+              <button data-v="open">Open</button>
+              <button data-v="closed">Closed</button>
+            </div>
+          </div>
+          <div id="questions" class="q-list"></div>
+        </section>
+
+        <!-- Screen control -->
+        <section class="card">
+          <div class="card-head"><h2>Presentation screen</h2></div>
+          <div class="field">
+            <span class="field-label">Page on screen</span>
+            <div class="seg seg-wide" id="screen-page" role="group" aria-label="Screen page"></div>
+          </div>
+          <div class="toggles">
+            <label class="toggle"><span>Small QR on results</span><input type="checkbox" id="t-smallqr"><i></i></label>
+            <label class="toggle"><span>Freeze bar order</span><input type="checkbox" id="t-freeze"><i></i></label>
+            <label class="toggle"><span>Dark theme</span><input type="checkbox" id="t-dark"><i></i></label>
+          </div>
+        </section>
+
+        <!-- Timer -->
+        <section class="card">
+          <div class="card-head"><h2>Timer</h2><span class="muted small" id="timer-state"></span></div>
+          <div class="timer-display num" id="timer-display">1:30</div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="timer-start">Start</button>
+            <button class="btn" id="timer-pause">Pause</button>
+            <button class="btn" id="timer-reset">Reset</button>
+            <button class="btn btn-quiet" id="timer-hide">Hide</button>
+          </div>
+          <form class="inline-form" id="timer-duration-form">
+            <label for="timer-duration">Duration, seconds</label>
+            <input id="timer-duration" type="number" min="5" max="3600" step="5" value="90">
+            <button class="btn" type="submit">Set</button>
+          </form>
+        </section>
+
+        <!-- Company tags -->
+        <section class="card span-2">
+          <div class="card-head">
+            <h2>Company tags</h2>
+            <button class="btn btn-quiet" id="tags-clear">Clear all</button>
+          </div>
+          <p class="muted small">Pick an answer option, then tap a company — the tag appears next to its bar on the screen (never on phones).</p>
+          <div class="tags-form">
+            <select id="tag-option" aria-label="Answer option"></select>
+            <div id="tag-companies" class="chips"></div>
+          </div>
+          <div id="tag-list" class="tag-list"></div>
+        </section>
+
+        <!-- Live results -->
+        <section class="card span-2">
+          <div class="card-head"><h2>Live results</h2><span class="muted small">Same numbers as the screen</span></div>
+          <div id="mini-results" class="mini-results"></div>
+        </section>
+
+        <!-- Data -->
+        <section class="card span-2">
+          <div class="card-head"><h2>Sessions &amp; data</h2></div>
+          <div class="data-grid">
+            <div>
+              <span class="field-label">Sessions</span>
+              <ul id="sessions" class="sessions"></ul>
+              <div class="btn-row">
+                <button class="btn" id="new-test">New test session</button>
+                <button class="btn btn-primary" id="new-live">New live session</button>
+              </div>
+            </div>
+            <div>
+              <span class="field-label">Export</span>
+              <div class="btn-row">
+                <button class="btn" id="export-summary">Summary CSV</button>
+                <button class="btn" id="export-responses">Anonymous responses CSV</button>
+              </div>
+              <span class="field-label" style="margin-top:22px">Reset current session</span>
+              <form class="inline-form" id="reset-form">
+                <label for="reset-confirm" class="muted small">Type <b>RESET</b> to delete all answers of this session</label>
+                <input id="reset-confirm" autocomplete="off" placeholder="RESET">
+                <button class="btn btn-danger" type="submit">Reset</button>
+              </form>
+              <span class="field-label" style="margin-top:22px">Operator PIN</span>
+              <form class="inline-form" id="pin-form">
+                <label for="new-pin" class="muted small">New PIN (min. 4 characters)</label>
+                <input id="new-pin" type="password" autocomplete="new-password">
+                <button class="btn" type="submit">Change</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
